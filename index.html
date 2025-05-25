@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning dalam Pembelajaran Bahasa Arab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .presentation-container {
+            width: 95%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 40px;
+            min-height: 600px;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide h1 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 15px;
+        }
+
+        .slide h2 {
+            color: #2a5298;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .slide h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .slide ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2a5298;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .column {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .column h4 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #2a5298;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .intro-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .intro-slide h1 {
+            color: white;
+            border-bottom: 3px solid white;
+            font-size: 3em;
+        }
+
+        .author-info {
+            margin-top: 40px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+                min-height: 500px;
+            }
+            
+            .slide h1 {
+                font-size: 2em;
+            }
+            
+            .slide h2 {
+                font-size: 1.5em;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .navigation {
+                bottom: 20px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">8</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active intro-slide">
+            <h1>📚 E-Learning dalam Pembelajaran Bahasa Arab</h1>
+            <div class="author-info">
+                <h3>🎓 Kelompok 15</h3>
+                <p><strong>Surya Ayu Setyoningrum</strong> - 23020230003</p>
+                <p><strong>Anik Setyani Rahayu</strong> - 23020230005</p>
+                <p><strong>Aufa Afni Maulida</strong> - 23020230006</p>
+                <br>
+                <p>Program Studi Pendidikan Bahasa Arab</p>
+                <p>UIN Salatiga - 2024</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Latar Belakang -->
+        <div class="slide">
+            <h2>🌟 Latar Belakang</h2>
+            
+            <div class="highlight">
+                <p><strong>Transformasi Digital dalam Pendidikan Bahasa Arab</strong></p>
+            </div>
+
+            <ul>
+                <li><strong>Kompleksitas Bahasa Arab</strong> - Tantangan bagi pembelajar non-native speaker</li>
+                <li><strong>Solusi Teknologi</strong> - Platform e-learning dengan fitur canggih (pengenalan suara, AR)</li>
+                <li><strong>Kebutuhan Global</strong> - Meningkatnya minat akademis, religius, dan profesional</li>
+                <li><strong>Efektivitas Terbukti</strong> - Peningkatan motivasi, keterlibatan, dan hasil belajar</li>
+            </ul>
+
+            <div class="highlight">
+                <p>💡 <strong>E-learning memberikan pembelajaran yang fleksibel, interaktif, dan dapat dipersonalisasi sesuai kebutuhan individual siswa</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Konsep E-Learning -->
+        <div class="slide">
+            <h2>💻 Konsep E-Learning dalam Bahasa Arab</h2>
+            
+            <h3>🎯 Implementasi Strategis</h3>
+            <ul>
+                <li>Mengadopsi model Badrul Al-Khan untuk integrasi teknologi terstruktur</li>
+                <li>Akses materi beragam: teks digital, video interaktif, aplikasi real-time</li>
+                <li>Pembelajaran kontinyu tanpa batasan waktu dan ruang</li>
+            </ul>
+
+            <h3>⚡ Keunggulan Utama</h3>
+            <div class="two-column">
+                <div class="column">
+                    <h4>🎪 Interaktivitas</h4>
+                    <ul>
+                        <li>Diskusi online aktif</li>
+                        <li>Latihan interaktif</li>
+                        <li>Feedback instan</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>📈 Efektivitas</h4>
+                    <ul>
+                        <li>Pembelajaran adaptif</li>
+                        <li>Multimedia kaya</li>
+                        <li>Hasil belajar meningkat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Peluang E-Learning -->
+        <div class="slide">
+            <h2>🚀 Peluang Pemanfaatan E-Learning</h2>
+            
+            <h3>🌐 Akses & Fleksibilitas</h3>
+            <ul>
+                <li><strong>Sumber Belajar Luas:</strong> E-book, video, audio, artikel online</li>
+                <li><strong>Aplikasi Interaktif:</strong> Duolingo, Quizlet, Memrise</li>
+                <li><strong>Pembelajaran Multimedia:</strong> Integrasi video, audio, dan latihan dalam satu platform</li>
+            </ul>
+
+            <h3>🤖 Teknologi Canggih</h3>
+            <div class="two-column">
+                <div class="column">
+                    <h4>AI & Personalisasi</h4>
+                    <ul>
+                        <li>Chatbot untuk latihan percakapan</li>
+                        <li>Sistem adaptif sesuai kemampuan</li>
+                        <li>Rekomendasi materi personal</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Evaluasi Digital</h4>
+                    <ul>
+                        <li>Kuis otomatis</li>
+                        <li>Umpan balik instan</li>
+                        <li>Monitoring perkembangan real-time</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <p>🌍 <strong>Komunitas Global:</strong> Interaksi dengan pelajar dan native speaker dari berbagai negara</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Tantangan E-Learning -->
+        <div class="slide">
+            <h2>⚠️ Tantangan E-Learning</h2>
+            
+            <h3>🔧 Infrastruktur & Teknologi</h3>
+            <ul>
+                <li><strong>Keterbatasan Perangkat:</strong> Tidak semua siswa memiliki smartphone/laptop memadai</li>
+                <li><strong>Akses Internet:</strong> Kuota terbatas, jaringan tidak stabil di daerah terpencil</li>
+                <li><strong>Kesenjangan Digital:</strong> Ketimpangan akses antar jenjang pendidikan</li>
+            </ul>
+
+            <h3>👨‍🏫 Kompetensi SDM</h3>
+            <div class="two-column">
+                <div class="column">
+                    <h4>Guru</h4>
+                    <ul>
+                        <li>Kurang menguasai aplikasi digital</li>
+                        <li>Perlu adaptasi metode mengajar</li>
+                        <li>Butuh pelatihan teknologi</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>Siswa</h4>
+                    <ul>
+                        <li>Kemampuan adaptasi beragam</li>
+                        <li>Motivasi dan kedisiplinan rendah</li>
+                        <li>Minat terhadap e-learning kurang</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tantangan Pembelajaran -->
+        <div class="slide">
+            <h2>📚 Tantangan Khusus Pembelajaran Bahasa</h2>
+            
+            <h3>🗣️ Keterampilan Bahasa</h3>
+            <ul>
+                <li><strong>Komunikasi Lisan:</strong> Sulit melatih speaking tanpa interaksi tatap muka</li>
+                <li><strong>Kualitas Audio:</strong> Gangguan teknis menghambat pembelajaran listening</li>
+                <li><strong>Praktik Terbatas:</strong> Kurang kesempatan praktek komunikatif intensif</li>
+            </ul>
+
+            <h3>💡 Solusi yang Diterapkan</h3>
+            <div class="highlight">
+                <ul>
+                    <li><strong>Inovasi Konten:</strong> Video edukatif dengan aplikasi editing (Kine Master, PowerPoint)</li>
+                    <li><strong>Multi-Platform:</strong> WhatsApp, Google Meet, Zoom untuk fleksibilitas</li>
+                    <li><strong>Pelatihan Guru:</strong> Workshop dan peningkatan kompetensi TI</li>
+                    <li><strong>Efisiensi Kuota:</strong> Download materi saat Wi-Fi, akses offline</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: Kesimpulan -->
+        <div class="slide">
+            <h2>📋 Kesimpulan</h2>
+            
+            <div class="two-column">
+                <div class="column">
+                    <h4>✅ Keunggulan E-Learning</h4>
+                    <ul>
+                        <li>Fleksibilitas waktu & tempat</li>
+                        <li>Akses materi lebih luas</li>
+                        <li>Metode interaktif & adaptif</li>
+                        <li>Meningkatkan motivasi & hasil belajar</li>
+                        <li>Demokratisasi akses pendidikan</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4>❗ Tantangan Utama</h4>
+                    <ul>
+                        <li>Keterbatasan infrastruktur</li>
+                        <li>Kompetensi teknologi rendah</li>
+                        <li>Kurang interaksi langsung</li>
+                        <li>Kesenjangan digital</li>
+                        <li>Adaptasi metode mengajar</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>🎯 Kunci Sukses:</strong> Komitmen dan kerja sama berbagai pihak untuk mengatasi tantangan secara bertahap dan berkelanjutan</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Penutup -->
+        <div class="slide intro-slide">
+            <span class="icon">🙏</span>
+            <h1>Terima Kasih</h1>
+            
+            <div class="author-info">
+                <h3>💬 Diskusi & Tanya Jawab</h3>
+                <p>Mari kita diskusikan lebih lanjut tentang implementasi e-learning dalam pembelajaran bahasa Arab</p>
+                <br>
+                <p><strong>Kritik dan saran membangun sangat kami harapkan</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅️ Sebelumnya</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Selanjutnya ➡️</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+        
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
