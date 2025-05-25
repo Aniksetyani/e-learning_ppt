@@ -13,102 +13,160 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
         }
 
-        .presentation-container {
-            width: 95%;
-            max-width: 1000px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide {
-            display: none;
+            width: 90%;
+            max-width: 1000px;
+            min-height: 70vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             padding: 40px;
-            min-height: 600px;
+            display: none;
+            animation: slideIn 0.8s ease-out;
             position: relative;
+            overflow: hidden;
         }
 
         .slide.active {
             display: block;
         }
 
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            animation: gradientMove 3s ease-in-out infinite;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
         .slide h1 {
-            color: #1e3c72;
             font-size: 2.5em;
+            color: #2c3e50;
             margin-bottom: 20px;
             text-align: center;
-            border-bottom: 3px solid #2a5298;
-            padding-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: bounce 2s infinite;
         }
 
         .slide h2 {
-            color: #2a5298;
             font-size: 2em;
+            color: #34495e;
             margin-bottom: 25px;
             text-align: center;
+            position: relative;
         }
 
-        .slide h3 {
-            color: #1e3c72;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            margin-top: 25px;
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
         }
 
-        .slide p, .slide li {
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .content {
+            line-height: 1.8;
+            color: #2c3e50;
             font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: #333;
         }
 
-        .slide ul {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
-        .slide li {
-            margin-bottom: 12px;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+        .highlight-box {
+            background: linear-gradient(135deg, #ff6b6b22, #4ecdc422);
+            border-left: 4px solid #ff6b6b;
             padding: 20px;
-            border-radius: 10px;
             margin: 20px 0;
-            border-left: 5px solid #2a5298;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .column {
-            background: #f8f9fa;
-            padding: 20px;
             border-radius: 10px;
-            border: 2px solid #e9ecef;
+            animation: pulse 2s infinite;
         }
 
-        .column h4 {
-            color: #2a5298;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #667eea22, #764ba222);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .navigation {
-            position: fixed;
+            position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
@@ -119,328 +177,343 @@
 
         .nav-btn {
             padding: 12px 24px;
-            background: #2a5298;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 1em;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .nav-btn:hover {
-            background: #1e3c72;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-btn:disabled {
-            background: #ccc;
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none;
         }
 
         .slide-counter {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: #2a5298;
-            color: white;
+            background: rgba(255, 255, 255, 0.8);
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: bold;
+            color: #2c3e50;
         }
 
-        .intro-slide {
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        ul {
+            padding-left: 0;
+            list-style: none;
         }
 
-        .intro-slide h1 {
-            color: white;
-            border-bottom: 3px solid white;
-            font-size: 3em;
+        li {
+            margin: 15px 0;
+            padding: 12px 0 12px 30px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        li:nth-child(1) { animation-delay: 0.1s; }
+        li:nth-child(2) { animation-delay: 0.2s; }
+        li:nth-child(3) { animation-delay: 0.3s; }
+        li:nth-child(4) { animation-delay: 0.4s; }
+
+        li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .author-info {
-            margin-top: 40px;
-            background: rgba(255,255,255,0.1);
+            text-align: center;
+            margin-top: 30px;
             padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b22, #4ecdc422);
             border-radius: 15px;
         }
 
-        .icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            display: block;
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        @media (max-width: 768px) {
-            .slide {
-                padding: 20px;
-                min-height: 500px;
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
             }
-            
-            .slide h1 {
-                font-size: 2em;
-            }
-            
-            .slide h2 {
-                font-size: 1.5em;
-            }
-            
-            .two-column {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .navigation {
-                bottom: 20px;
-            }
-            
-            .nav-btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
+            50% {
+                transform: translateY(-20px) rotate(180deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="presentation-container">
-        <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    <div class="container">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
         </div>
 
         <!-- Slide 1: Title -->
-        <div class="slide active intro-slide">
-            <h1>📚 E-Learning dalam Pembelajaran Bahasa Arab</h1>
+        <div class="slide active">
+            <div class="slide-counter">1 / 7</div>
+            <h1>E-LEARNING DALAM PEMBELAJARAN BAHASA ARAB</h1>
             <div class="author-info">
-                <h3>🎓 Kelompok 15</h3>
+                <h3>Kelompok 15</h3>
                 <p><strong>Surya Ayu Setyoningrum</strong> - 23020230003</p>
                 <p><strong>Anik Setyani Rahayu</strong> - 23020230005</p>
                 <p><strong>Aufa Afni Maulida</strong> - 23020230006</p>
                 <br>
-                <p>Program Studi Pendidikan Bahasa Arab</p>
-                <p>UIN Salatiga - 2024</p>
+                <p><em>Program Studi Pendidikan Bahasa Arab<br>
+                Fakultas Tarbiyah dan Ilmu Keguruan (FTIK)<br>
+                Universitas Islam Negeri (UIN) Salatiga</em></p>
             </div>
         </div>
 
         <!-- Slide 2: Latar Belakang -->
         <div class="slide">
-            <h2>🌟 Latar Belakang</h2>
-            
-            <div class="highlight">
-                <p><strong>Transformasi Digital dalam Pendidikan Bahasa Arab</strong></p>
-            </div>
-
-            <ul>
-                <li><strong>Kompleksitas Bahasa Arab</strong> - Tantangan bagi pembelajar non-native speaker</li>
-                <li><strong>Solusi Teknologi</strong> - Platform e-learning dengan fitur canggih (pengenalan suara, AR)</li>
-                <li><strong>Kebutuhan Global</strong> - Meningkatnya minat akademis, religius, dan profesional</li>
-                <li><strong>Efektivitas Terbukti</strong> - Peningkatan motivasi, keterlibatan, dan hasil belajar</li>
-            </ul>
-
-            <div class="highlight">
-                <p>💡 <strong>E-learning memberikan pembelajaran yang fleksibel, interaktif, dan dapat dipersonalisasi sesuai kebutuhan individual siswa</strong></p>
-            </div>
-        </div>
-
-        <!-- Slide 3: Konsep E-Learning -->
-        <div class="slide">
-            <h2>💻 Konsep E-Learning dalam Bahasa Arab</h2>
-            
-            <h3>🎯 Implementasi Strategis</h3>
-            <ul>
-                <li>Mengadopsi model Badrul Al-Khan untuk integrasi teknologi terstruktur</li>
-                <li>Akses materi beragam: teks digital, video interaktif, aplikasi real-time</li>
-                <li>Pembelajaran kontinyu tanpa batasan waktu dan ruang</li>
-            </ul>
-
-            <h3>⚡ Keunggulan Utama</h3>
-            <div class="two-column">
-                <div class="column">
-                    <h4>🎪 Interaktivitas</h4>
-                    <ul>
-                        <li>Diskusi online aktif</li>
-                        <li>Latihan interaktif</li>
-                        <li>Feedback instan</li>
-                    </ul>
+            <div class="slide-counter">2 / 7</div>
+            <h2>Latar Belakang</h2>
+            <div class="content">
+                <div class="highlight-box">
+                    <strong>Transformasi Digital dalam Pembelajaran Bahasa Arab</strong>
                 </div>
-                <div class="column">
-                    <h4>📈 Efektivitas</h4>
-                    <ul>
-                        <li>Pembelajaran adaptif</li>
-                        <li>Multimedia kaya</li>
-                        <li>Hasil belajar meningkat</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 4: Peluang E-Learning -->
-        <div class="slide">
-            <h2>🚀 Peluang Pemanfaatan E-Learning</h2>
-            
-            <h3>🌐 Akses & Fleksibilitas</h3>
-            <ul>
-                <li><strong>Sumber Belajar Luas:</strong> E-book, video, audio, artikel online</li>
-                <li><strong>Aplikasi Interaktif:</strong> Duolingo, Quizlet, Memrise</li>
-                <li><strong>Pembelajaran Multimedia:</strong> Integrasi video, audio, dan latihan dalam satu platform</li>
-            </ul>
-
-            <h3>🤖 Teknologi Canggih</h3>
-            <div class="two-column">
-                <div class="column">
-                    <h4>AI & Personalisasi</h4>
-                    <ul>
-                        <li>Chatbot untuk latihan percakapan</li>
-                        <li>Sistem adaptif sesuai kemampuan</li>
-                        <li>Rekomendasi materi personal</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h4>Evaluasi Digital</h4>
-                    <ul>
-                        <li>Kuis otomatis</li>
-                        <li>Umpan balik instan</li>
-                        <li>Monitoring perkembangan real-time</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight">
-                <p>🌍 <strong>Komunitas Global:</strong> Interaksi dengan pelajar dan native speaker dari berbagai negara</p>
-            </div>
-        </div>
-
-        <!-- Slide 5: Tantangan E-Learning -->
-        <div class="slide">
-            <h2>⚠️ Tantangan E-Learning</h2>
-            
-            <h3>🔧 Infrastruktur & Teknologi</h3>
-            <ul>
-                <li><strong>Keterbatasan Perangkat:</strong> Tidak semua siswa memiliki smartphone/laptop memadai</li>
-                <li><strong>Akses Internet:</strong> Kuota terbatas, jaringan tidak stabil di daerah terpencil</li>
-                <li><strong>Kesenjangan Digital:</strong> Ketimpangan akses antar jenjang pendidikan</li>
-            </ul>
-
-            <h3>👨‍🏫 Kompetensi SDM</h3>
-            <div class="two-column">
-                <div class="column">
-                    <h4>Guru</h4>
-                    <ul>
-                        <li>Kurang menguasai aplikasi digital</li>
-                        <li>Perlu adaptasi metode mengajar</li>
-                        <li>Butuh pelatihan teknologi</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h4>Siswa</h4>
-                    <ul>
-                        <li>Kemampuan adaptasi beragam</li>
-                        <li>Motivasi dan kedisiplinan rendah</li>
-                        <li>Minat terhadap e-learning kurang</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Tantangan Pembelajaran -->
-        <div class="slide">
-            <h2>📚 Tantangan Khusus Pembelajaran Bahasa</h2>
-            
-            <h3>🗣️ Keterampilan Bahasa</h3>
-            <ul>
-                <li><strong>Komunikasi Lisan:</strong> Sulit melatih speaking tanpa interaksi tatap muka</li>
-                <li><strong>Kualitas Audio:</strong> Gangguan teknis menghambat pembelajaran listening</li>
-                <li><strong>Praktik Terbatas:</strong> Kurang kesempatan praktek komunikatif intensif</li>
-            </ul>
-
-            <h3>💡 Solusi yang Diterapkan</h3>
-            <div class="highlight">
                 <ul>
-                    <li><strong>Inovasi Konten:</strong> Video edukatif dengan aplikasi editing (Kine Master, PowerPoint)</li>
-                    <li><strong>Multi-Platform:</strong> WhatsApp, Google Meet, Zoom untuk fleksibilitas</li>
-                    <li><strong>Pelatihan Guru:</strong> Workshop dan peningkatan kompetensi TI</li>
-                    <li><strong>Efisiensi Kuota:</strong> Download materi saat Wi-Fi, akses offline</li>
+                    <li>Bahasa Arab yang kompleks kini dapat dipelajari melalui teknologi inovatif dan interaktif</li>
+                    <li>E-learning memberikan pendekatan baru yang lebih fleksibel - belajar kapan saja, di mana saja</li>
+                    <li>Platform digital meningkatkan motivasi, keterlibatan, dan hasil belajar siswa</li>
+                    <li>Teknologi AR dan pengenalan suara membantu mengembangkan keterampilan mendengar, berbicara, dan membaca</li>
                 </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Rumusan Masalah & Tujuan -->
+        <div class="slide">
+            <div class="slide-counter">3 / 7</div>
+            <h2>Rumusan Masalah & Tujuan</h2>
+            <div class="content">
+                <div class="grid">
+                    <div class="card">
+                        <h4>🤔 Rumusan Masalah</h4>
+                        <ul>
+                            <li>Bagaimana konsep e-learning dalam pembelajaran bahasa Arab?</li>
+                            <li>Peluang apa yang perlu ditingkatkan?</li>
+                            <li>Tantangan apa yang menghambat optimalisasi?</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Tujuan</h4>
+                        <ul>
+                            <li>Mengetahui konsep e-learning bahasa Arab</li>
+                            <li>Mengidentifikasi peluang pemanfaatan</li>
+                            <li>Memahami tantangan optimalisasi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Konsep E-learning -->
+        <div class="slide">
+            <div class="slide-counter">4 / 7</div>
+            <h2>Konsep E-learning dalam Pembelajaran Bahasa Arab</h2>
+            <div class="content">
+                <div class="highlight-box">
+                    <strong>Strategi pengajaran berbasis teknologi digital yang interaktif</strong>
+                </div>
+                <ul>
+                    <li><strong>Fleksibilitas:</strong> Akses materi kapan saja, tidak terbatas waktu dan ruang</li>
+                    <li><strong>Interaktivitas:</strong> Diskusi online, latihan interaktif, feedback langsung</li>
+                    <li><strong>Multimedia:</strong> Audio, video, animasi untuk pronunciation dan intonasi</li>
+                    <li><strong>Personalisasi:</strong> Konten adaptif sesuai kemampuan individual</li>
+                    <li><strong>Peningkatan Prestasi:</strong> Hasil belajar lebih baik dibanding metode tradisional</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Peluang -->
+        <div class="slide">
+            <div class="slide-counter">5 / 7</div>
+            <h2>Peluang Pemanfaatan E-learning</h2>
+            <div class="content">
+                <div class="grid">
+                    <div class="card">
+                        <h4>📚 Akses Sumber Belajar</h4>
+                        <ul>
+                            <li>E-book dan video pembelajaran</li>
+                            <li>Audio percakapan native speaker</li>
+                            <li>Aplikasi seperti Duolingo, Quizlet</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🤖 Teknologi AI</h4>
+                        <ul>
+                            <li>Chatbot untuk latihan percakapan</li>
+                            <li>Sistem adaptif personal</li>
+                            <li>Evaluasi otomatis dan cepat</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🌐 Komunitas Global</h4>
+                        <ul>
+                            <li>Forum diskusi online</li>
+                            <li>Interaksi dengan penutur asli</li>
+                            <li>Kursus bersertifikat internasional</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tantangan -->
+        <div class="slide">
+            <div class="slide-counter">6 / 7</div>
+            <h2>Tantangan yang Menghambat Optimalisasi</h2>
+            <div class="content">
+                <div class="grid">
+                    <div class="card">
+                        <h4>📱 Infrastruktur & Akses</h4>
+                        <ul>
+                            <li>Keterbatasan perangkat digital</li>
+                            <li>Akses internet tidak merata</li>
+                            <li>Masalah kuota dan sinyal</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>👨‍🏫 Kompetensi Guru</h4>
+                        <ul>
+                            <li>Belum menguasai teknologi</li>
+                            <li>Perlu adaptasi metode mengajar</li>
+                            <li>Konversi materi ke digital</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Aspek Pembelajaran</h4>
+                        <ul>
+                            <li>Interaksi langsung terbatas</li>
+                            <li>Keterampilan komunikatif sulit diasah</li>
+                            <li>Motivasi dan minat siswa rendah</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 7: Kesimpulan -->
         <div class="slide">
-            <h2>📋 Kesimpulan</h2>
-            
-            <div class="two-column">
-                <div class="column">
-                    <h4>✅ Keunggulan E-Learning</h4>
-                    <ul>
-                        <li>Fleksibilitas waktu & tempat</li>
-                        <li>Akses materi lebih luas</li>
-                        <li>Metode interaktif & adaptif</li>
-                        <li>Meningkatkan motivasi & hasil belajar</li>
-                        <li>Demokratisasi akses pendidikan</li>
-                    </ul>
+            <div class="slide-counter">7 / 7</div>
+            <h2>Kesimpulan</h2>
+            <div class="content">
+                <div class="highlight-box">
+                    <strong>E-learning: Peluang Besar dengan Tantangan yang Perlu Diatasi</strong>
                 </div>
-                <div class="column">
-                    <h4>❗ Tantangan Utama</h4>
-                    <ul>
-                        <li>Keterbatasan infrastruktur</li>
-                        <li>Kompetensi teknologi rendah</li>
-                        <li>Kurang interaksi langsung</li>
-                        <li>Kesenjangan digital</li>
-                        <li>Adaptasi metode mengajar</li>
-                    </ul>
+                <div class="grid">
+                    <div class="card">
+                        <h4>✅ Keunggulan</h4>
+                        <ul>
+                            <li>Fleksibilitas waktu & tempat</li>
+                            <li>Metode interaktif & adaptif</li>
+                            <li>Meningkatkan motivasi siswa</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>⚠️ Tantangan</h4>
+                        <ul>
+                            <li>Keterbatasan infrastruktur</li>
+                            <li>Gap kompetensi teknologi</li>
+                            <li>Kurangnya interaksi langsung</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="highlight">
-                <p><strong>🎯 Kunci Sukses:</strong> Komitmen dan kerja sama berbagai pihak untuk mengatasi tantangan secara bertahap dan berkelanjutan</p>
-            </div>
-        </div>
-
-        <!-- Slide 8: Penutup -->
-        <div class="slide intro-slide">
-            <span class="icon">🙏</span>
-            <h1>Terima Kasih</h1>
-            
-            <div class="author-info">
-                <h3>💬 Diskusi & Tanya Jawab</h3>
-                <p>Mari kita diskusikan lebih lanjut tentang implementasi e-learning dalam pembelajaran bahasa Arab</p>
-                <br>
-                <p><strong>Kritik dan saran membangun sangat kami harapkan</strong></p>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>Solusi:</strong> Dengan komitmen dan kerja sama, e-learning tetap menjadi peluang besar untuk meningkatkan kualitas pembelajaran bahasa Arab di era digital! 🚀
+                </div>
             </div>
         </div>
     </div>
 
     <div class="navigation">
-        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">⬅️ Sebelumnya</button>
-        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Selanjutnya ➡️</button>
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
     </div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
-        
-        document.getElementById('total-slides').textContent = totalSlides;
-        
+
         function showSlide(n) {
             slides[currentSlide].classList.remove('active');
             currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
             
-            document.getElementById('current-slide').textContent = currentSlide + 1;
-            
             // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
-        
+
         function changeSlide(direction) {
             if (direction === 1 && currentSlide < totalSlides - 1) {
                 showSlide(currentSlide + 1);
@@ -448,18 +521,43 @@
                 showSlide(currentSlide - 1);
             }
         }
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                changeSlide(1);
-            } else if (e.key === 'ArrowLeft') {
-                changeSlide(-1);
-            }
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
         });
-        
+
         // Initialize
         showSlide(0);
+
+        // Auto-animate elements when slide changes
+        function animateSlideElements() {
+            const activeSlide = document.querySelector('.slide.active');
+            const elements = activeSlide.querySelectorAll('li, .card');
+            
+            elements.forEach((el, index) => {
+                el.style.animation = 'none';
+                setTimeout(() => {
+                    el.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+                }, 100);
+            });
+        }
+
+        // Call animation on slide change
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (mutation.target.classList.contains('active')) {
+                        setTimeout(animateSlideElements, 100);
+                    }
+                }
+            });
+        });
+
+        slides.forEach(slide => {
+            observer.observe(slide, { attributes: true });
+        });
     </script>
 </body>
 </html>
